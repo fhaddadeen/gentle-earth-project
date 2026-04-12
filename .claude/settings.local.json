@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.gentleearthproject.com)",
+      "Bash(python -m markitdown \"/Users/fadihaddadeen/Downloads/Website Design Jan 26.pptx\")",
+      "Bash(python3 -m markitdown \"/Users/fadihaddadeen/Downloads/Website Design Jan 26.pptx\")",
+      "Bash(pip3 install:*)",
+      "Bash(python3 -c \"from markitdown import MarkItDown; md = MarkItDown\\(\\); result = md.convert\\('/Users/fadihaddadeen/Downloads/Website Design Jan 26.pptx'\\); print\\(result.text_content\\)\")",
+      "Bash(brew list:*)",
+      "Read(//usr/local/bin/**)",
+      "Read(//opt/homebrew/bin/**)",
+      "Bash(/usr/local/bin/python3.14 -m pip install markitdown -q)",
+      "Bash(/usr/local/bin/python3.14 -c \"from markitdown import MarkItDown; md = MarkItDown\\(\\); result = md.convert\\('/Users/fadihaddadeen/Downloads/Website Design Jan 26.pptx'\\); print\\(result.text_content\\)\")",
+      "Bash(/usr/local/bin/python3.14 -m pip install \"markitdown[pptx]\" -q)",
+      "Bash(npm list:*)",
+      "Read(//private/tmp/**)",
+      "Bash(npm install:*)",
+      "Bash(node gep-uae-deck.js)",
+      "Bash(python3 \"/Users/fadihaddadeen/Library/Application Support/Claude/local-agent-mode-sessions/skills-plugin/a301456c-5c6d-4d81-919d-a82a3429a2c9/ddd233c8-9b71-4711-bc0f-0be73f861573/skills/pptx/scripts/office/soffice.py\" --headless --convert-to pdf \"/Users/fadihaddadeen/Library/Mobile Documents/com~apple~CloudDocs/Cowork OS/GEP Website/GEP - UAE Ministry of Environment - April 2026.pptx\")",
+      "Bash(open \"/Users/fadihaddadeen/Library/Mobile Documents/com~apple~CloudDocs/Cowork OS/GEP Website/GEP - UAE Ministry of Environment - April 2026.pptx\")"
+    ]
+  }
+}
