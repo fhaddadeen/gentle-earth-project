@@ -58,11 +58,11 @@
         <!-- LOGIN -->
         <div class="card">
           <div class="portal-tabs">
-            <button class="portal-tab active" data-tab="panel-login" id="login-tab">Sign In</button>
-            <button class="portal-tab" data-tab="panel-signup" id="signup-tab">Register</button>
+            <button class="portal-tab" data-tab="panel-login" id="login-tab">Sign In</button>
+            <button class="portal-tab active" data-tab="panel-signup" id="signup-tab">Register</button>
           </div>
 
-          <div class="portal-panel active" id="panel-login">
+          <div class="portal-panel" id="panel-login">
             <h3 style="margin-bottom:var(--sp-6);">Welcome Back</h3>
             <form data-feedback>
               <div class="form-group">
@@ -83,12 +83,14 @@
             </div>
           </div>
 
-          <div class="portal-panel" id="panel-signup">
+          <div class="portal-panel active" id="panel-signup">
             <h3 style="margin-bottom:var(--sp-6);">Register for Access</h3>
-            <form data-feedback>
+            <form action="https://formspree.io/f/mbdqlwqo" method="POST" data-feedback>
+              <input type="hidden" name="_subject" value="New Portal Registration — Gentle Earth Project">
+              <input type="text" name="_gotcha" style="display:none">
               <div class="form-group">
                 <label class="form-label">Project</label>
-                <select class="form-control" required>
+                <select name="project" class="form-control" required>
                   <option value="">— Select a project —</option>
                   <option>D.R. Congo</option>
                   <option>Ethiopia</option>
@@ -98,35 +100,35 @@
               </div>
               <div class="form-group">
                 <label class="form-label">Title</label>
-                <input type="text" class="form-control" placeholder="e.g. Dr, Mr, Ms">
+                <input type="text" name="title" class="form-control" placeholder="e.g. Dr, Mr, Ms">
               </div>
               <div class="form-row">
                 <div class="form-group">
                   <label class="form-label">First Name</label>
-                  <input type="text" class="form-control" required>
+                  <input type="text" name="first_name" class="form-control" required>
                 </div>
                 <div class="form-group">
                   <label class="form-label">Last Name</label>
-                  <input type="text" class="form-control" required>
+                  <input type="text" name="last_name" class="form-control" required>
                 </div>
               </div>
               <div class="form-group">
                 <label class="form-label">Username</label>
-                <input type="text" class="form-control" required>
+                <input type="text" name="username" class="form-control" required>
               </div>
               <div class="form-row">
                 <div class="form-group">
                   <label class="form-label">Email</label>
-                  <input type="email" class="form-control" required>
+                  <input type="email" name="email" class="form-control" required>
                 </div>
                 <div class="form-group">
                   <label class="form-label">Phone Number</label>
-                  <input type="tel" class="form-control" placeholder="+1">
+                  <input type="tel" name="phone" class="form-control" placeholder="+1">
                 </div>
               </div>
               <div class="form-group">
                 <label class="form-label">Stakeholder Type</label>
-                <select class="form-control" required>
+                <select name="stakeholder_type" class="form-control" required>
                   <option value="">— Select your role —</option>
                   <option>Investor</option>
                   <option>Carbon Credit Buyer</option>

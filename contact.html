@@ -32,28 +32,30 @@
         <div>
           <p class="eyebrow">Send a Message</p>
           <h2 style="margin-bottom:var(--sp-8);">We'd like to hear from you</h2>
-          <form data-feedback>
+          <form action="https://formspree.io/f/xwvapyav" method="POST" data-feedback>
+            <input type="hidden" name="_subject" value="New Contact Enquiry — Gentle Earth Project">
+            <input type="text" name="_gotcha" style="display:none">
             <div class="form-row">
               <div class="form-group">
                 <label class="form-label">First Name</label>
-                <input type="text" class="form-control" placeholder="First name" required>
+                <input type="text" name="first_name" class="form-control" placeholder="First name" required>
               </div>
               <div class="form-group">
                 <label class="form-label">Last Name</label>
-                <input type="text" class="form-control" placeholder="Last name" required>
+                <input type="text" name="last_name" class="form-control" placeholder="Last name" required>
               </div>
             </div>
             <div class="form-group">
               <label class="form-label">Email</label>
-              <input type="email" class="form-control" placeholder="your@email.com" required>
+              <input type="email" name="email" class="form-control" placeholder="your@email.com" required>
             </div>
             <div class="form-group">
               <label class="form-label">Organisation <span style="color:var(--muted);font-weight:400;">(optional)</span></label>
-              <input type="text" class="form-control" placeholder="Your organisation">
+              <input type="text" name="organisation" class="form-control" placeholder="Your organisation">
             </div>
             <div class="form-group">
               <label class="form-label">I am enquiring as a</label>
-              <select class="form-control">
+              <select name="enquiry_type" class="form-control">
                 <option value="">— Select —</option>
                 <option>Government representative</option>
                 <option>Institutional investor</option>
@@ -65,7 +67,7 @@
             </div>
             <div class="form-group">
               <label class="form-label">Message</label>
-              <textarea class="form-control" placeholder="Tell us about your enquiry…" required></textarea>
+              <textarea name="message" class="form-control" placeholder="Tell us about your enquiry…" required></textarea>
             </div>
             <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Send Message</button>
             <div class="form-success">Thank you — we'll be in touch within 2–3 business days.</div>

@@ -36,17 +36,45 @@ document.addEventListener('DOMContentLoaded', () => {
     fadeEls.forEach(el => observer.observe(el));
   }
 
-  // ── Contact / portal form feedback ──────────
+  // ── Contact / portal form submission ────────
   document.querySelectorAll('form[data-feedback]').forEach(form => {
-    form.addEventListener('submit', e => {
+    form.addEventListener('submit', async e => {
       e.preventDefault();
       const msg = form.querySelector('.form-success');
-      if (msg) {
+      const btn = form.querySelector('button[type="submit"]');
+
+      // No action = UI placeholder (e.g. Sign In form) — dummy behaviour only
+      if (!form.action || form.action === window.location.href) {
         form.reset();
-        msg.style.display = 'block';
-        setTimeout(() => { msg.style.display = 'none'; }, 5000);
+        if (msg) { msg.style.display = 'block'; setTimeout(() => { msg.style.display = 'none'; }, 5000); }
+        return;
+      }
+
+      // Disable button while submitting
+      if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          form.reset();
+          if (msg) { msg.style.display = 'block'; setTimeout(() => { msg.style.display = 'none'; }, 7000); }
+        } else {
+          alert('Something went wrong — please try again or email us at contact@gentleearthproject.com');
+        }
+      } catch {
+        alert('Unable to send — please check your connection and try again.');
+      } finally {
+        if (btn) { btn.disabled = false; btn.textContent = btn.getAttribute('data-label') || 'Submit'; }
       }
     });
+
+    // Store original button label for restore after submit
+    const btn = form.querySelector('button[type="submit"]');
+    if (btn) btn.setAttribute('data-label', btn.textContent.trim());
   });
 
 });
