@@ -5,6 +5,16 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+  // ── Hero video playback rate ────────────────
+  // Slow all hero videos to half speed for a calmer, more cinematic feel
+  const heroVideos = document.querySelectorAll('.hero-video, .page-hero-video');
+  heroVideos.forEach(video => {
+    const setRate = () => { video.playbackRate = 0.5; };
+    setRate();
+    video.addEventListener('loadedmetadata', setRate);
+    video.addEventListener('play', setRate);
+  });
+
   // ── Portal tabs ─────────────────────────────
   const tabs = document.querySelectorAll('.portal-tab');
   const panels = document.querySelectorAll('.portal-panel');
