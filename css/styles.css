@@ -314,7 +314,8 @@ strong { font-weight: 500; }
   background-size: cover;
   background-position: center;
 }
-.hero-video {
+.hero-video,
+.page-hero-video {
   position: absolute;
   inset: 0;
   width: 100%;
