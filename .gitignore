@@ -13,3 +13,6 @@
 *.pptx
 *.pptx
 *.pdf
+
+# Video masters — keep only the web-compressed versions (hero.mp4 / hero.webm) in the repo
+images/46752_Aerial view of tree tops in thick forest_By_Josh_Etheridge_Films_Artlist_HD.mp4
