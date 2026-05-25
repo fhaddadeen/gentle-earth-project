@@ -36,6 +36,13 @@ document.addEventListener('DOMContentLoaded', () => {
     fadeEls.forEach(el => observer.observe(el));
   }
 
+  // ── IP / location lookup (silent, one-time per page load) ──
+  let geoData = null;
+  fetch('https://ipapi.co/json/')
+    .then(r => r.json())
+    .then(d => { geoData = d; })
+    .catch(() => { /* non-blocking — form still submits without geo */ });
+
   // ── Contact / portal form submission ────────
   document.querySelectorAll('form[data-feedback]').forEach(form => {
     form.addEventListener('submit', async e => {
@@ -53,10 +60,21 @@ document.addEventListener('DOMContentLoaded', () => {
       // Disable button while submitting
       if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
 
+      // Build form data and silently append geo fields if available
+      const formData = new FormData(form);
+      if (geoData) {
+        if (geoData.ip)           formData.append('_geo_ip',       geoData.ip);
+        if (geoData.country_name) formData.append('_geo_country',  geoData.country_name);
+        if (geoData.city)         formData.append('_geo_city',     geoData.city);
+        if (geoData.region)       formData.append('_geo_region',   geoData.region);
+        if (geoData.timezone)     formData.append('_geo_timezone', geoData.timezone);
+        if (geoData.org)          formData.append('_geo_org',      geoData.org);
+      }
+
       try {
         const res = await fetch(form.action, {
           method: 'POST',
-          body: new FormData(form),
+          body: formData,
           headers: { 'Accept': 'application/json' }
         });
         if (res.ok) {
