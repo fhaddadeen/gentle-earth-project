@@ -185,7 +185,62 @@ function initComponents() {
       link.classList.add('active');
     }
   });
+
+  // Scroll-to-top button
+  const toTopBtn = document.createElement('button');
+  toTopBtn.id = 'scroll-to-top';
+  toTopBtn.setAttribute('aria-label', 'Back to top');
+  toTopBtn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>`;
+  document.body.appendChild(toTopBtn);
+
+  window.addEventListener('scroll', () => {
+    toTopBtn.classList.toggle('visible', window.scrollY > 320);
+  }, { passive: true });
+
+  toTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 }
+
+/* Scroll-to-top button styles */
+(function injectScrollTopStyles() {
+  const s = document.createElement('style');
+  s.textContent = `
+    #scroll-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 8000;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(122,140,74,0.5);
+      background: #1E2912;
+      color: #7A8C4A;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      pointer-events: none;
+    }
+    #scroll-to-top.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    #scroll-to-top:hover {
+      background: #2a3a18;
+      border-color: rgba(122,140,74,0.9);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #scroll-to-top { transition: none; }
+    }
+  `;
+  document.head.appendChild(s);
+})();
 
 document.addEventListener('DOMContentLoaded', initComponents);
 
@@ -210,7 +265,7 @@ document.addEventListener('DOMContentLoaded', initComponents);
     ">
       <p style="margin:0;max-width:680px;">
         We use cookies to analyse site traffic and improve your experience.
-        By continuing to use this site, you consent to our use of cookies in accordance with our privacy policy.
+        By continuing to use this site, you consent to our use of cookies in accordance with our <a href="privacy.html" style="color:rgba(255,255,255,0.75);text-decoration:underline;text-underline-offset:3px;">privacy policy</a>.
       </p>
       <div style="display:flex;gap:0.75rem;flex-shrink:0;">
         <button id="cookie-decline" style="

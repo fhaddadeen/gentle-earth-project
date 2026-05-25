@@ -3,6 +3,18 @@
    Main JS — Interactions
    =================================== */
 
+function showToast(message, type) {
+  const toast = document.createElement('div');
+  toast.className = 'gep-toast gep-toast--' + (type || 'error');
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  requestAnimationFrame(() => toast.classList.add('gep-toast--show'));
+  setTimeout(() => {
+    toast.classList.remove('gep-toast--show');
+    setTimeout(() => toast.remove(), 400);
+  }, 6000);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
 
   // ── Portal tabs ─────────────────────────────
@@ -80,11 +92,17 @@ document.addEventListener('DOMContentLoaded', () => {
         if (res.ok) {
           form.reset();
           if (msg) { msg.style.display = 'block'; setTimeout(() => { msg.style.display = 'none'; }, 7000); }
+          if (typeof gtag === 'function') {
+            gtag('event', 'form_submit', {
+              form_id: form.getAttribute('action') || 'unknown',
+              page: window.location.pathname
+            });
+          }
         } else {
-          alert('Something went wrong — please try again or email us at contact@gentleearthproject.com');
+          showToast('Something went wrong — please try again or email us at contact@gentleearthproject.com', 'error');
         }
       } catch {
-        alert('Unable to send — please check your connection and try again.');
+        showToast('Unable to send — please check your connection and try again.', 'error');
       } finally {
         if (btn) { btn.disabled = false; btn.textContent = btn.getAttribute('data-label') || 'Submit'; }
       }
@@ -103,6 +121,9 @@ document.addEventListener('DOMContentLoaded', () => {
   style.textContent = `
     .fade-in { opacity: 0; transform: translateY(18px); transition: opacity 0.55s ease, transform 0.55s ease; }
     .fade-in.visible { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .fade-in { opacity: 1; transform: none; transition: none; }
+    }
     .form-success {
       display: none;
       margin-top: 1rem;
@@ -112,6 +133,32 @@ document.addEventListener('DOMContentLoaded', () => {
       border-radius: 6px;
       color: #4D5C28;
       font-size: 0.875rem;
+    }
+    .gep-toast {
+      position: fixed;
+      bottom: 5rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #3a1a1a;
+      color: rgba(255,255,255,0.9);
+      border: 1px solid rgba(200,80,80,0.4);
+      border-radius: 6px;
+      padding: 0.85rem 1.4rem;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      max-width: min(480px, 90vw);
+      text-align: center;
+      z-index: 9998;
+      opacity: 0;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+      pointer-events: none;
+    }
+    .gep-toast--show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .gep-toast { transition: none; }
     }
   `;
   document.head.appendChild(style);
